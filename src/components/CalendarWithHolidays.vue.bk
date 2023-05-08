@@ -1,0 +1,66 @@
+<!-- src/components/CalendarWithHolidays.vue -->
+<template>
+  <div>
+    <h2>Holidays in {{ country }}</h2>
+    <el-calendar v-loading="loading" :date-cell-render="getHolidayName"></el-calendar>
+  </div>
+</template>
+
+<script>
+import { format } from 'date-fns';
+import Holidays from 'date-holidays';
+
+export default {
+  name: 'CalendarWithHolidays',
+  props: {
+    country: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      holidays: {},
+      loading: false,
+    };
+  },
+  methods: {
+    loadHolidays() {
+      this.loading = true;
+      const hd = new Holidays(this.country);
+      const year = new Date().getFullYear();
+      const holidayList = hd.getHolidays(year);
+      this.holidays = holidayList.reduce((acc, holiday) => {
+        acc[format(new Date(holiday.date), 'yyyy-MM-dd')] = holiday.name;
+        return acc;
+      }, {});
+      this.loading = false;
+    },
+    getHolidayName(date) {
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      const cellContent = document.createElement('div');
+      const dateText = document.createElement('span');
+      dateText.textContent = date.getDate();
+      cellContent.appendChild(dateText);
+
+      if (this.holidays[formattedDate]) {
+        const holidayText = document.createElement('div');
+        holidayText.textContent = this.holidays[formattedDate];
+        holidayText.style.fontSize = '12px';
+        holidayText.style.color = 'red';
+        cellContent.appendChild(holidayText);
+      }
+
+      return cellContent;
+    },
+  },
+  watch: {
+    country() {
+      this.loadHolidays();
+    },
+  },
+  created() {
+    this.loadHolidays();
+  },
+};
+</script>

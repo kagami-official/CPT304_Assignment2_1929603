@@ -1,2 +1,19 @@
-# CPT304_Assignment2_1929603
-Code repository for CPT304 Assignment2, ID: 1929603
+# XJTLU Bonding Forum Frontend
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
