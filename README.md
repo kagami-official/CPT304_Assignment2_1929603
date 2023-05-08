@@ -1,4 +1,8 @@
-# XJTLU Bonding Forum Frontend
+# CPT304_Assignment2
+
+## Infomation
+
+ID: 1929603
 
 ## Project setup
 ```
@@ -14,6 +18,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
